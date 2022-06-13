@@ -3,7 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "lint:js": "eslint . --ext .js",
+    "lint:js:fix": "npm run lint:js -- --fix",
+    "test": "mocha ./test/*.js",
+    "prepare": "husky install"
+  },
+  "engines": {
+    "node": ">=0.14"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

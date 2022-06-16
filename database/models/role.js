@@ -14,11 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Roles.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING
+    name:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description:{
+      type: DataTypes.STRING(255),
+      allowNull: false
+    }
   }, {
     sequelize,
-    modelName: 'Roles',
+    modelName: 'Roles'
   });
+  
   return Roles;
 };

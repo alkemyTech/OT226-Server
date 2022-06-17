@@ -3,9 +3,8 @@ const { getIndex } = require('../services/index')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
 
-// hexample of a controller. First call the service, then build the controller metod
 module.exports = {
-  get: catchAsync(async (req, res, next) => {
+  getNews: get: catchAsync(async (req, res, next) => {
     try {
       const response = await getIndex('x')
       endpointResponse({
@@ -20,5 +19,5 @@ module.exports = {
       )
       next(httpError)
     }
-  }),
+  })
 }

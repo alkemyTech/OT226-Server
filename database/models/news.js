@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'News',
+    paranoid: true,
+    timestamps: true
   });
   return News;
 };

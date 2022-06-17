@@ -4,7 +4,7 @@ const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
 
 module.exports = {
-  getNews: get: catchAsync(async (req, res, next) => {
+  getNews: catchAsync(async (req, res, next) => {
     try {
       const response = await getIndex('x')
       endpointResponse({

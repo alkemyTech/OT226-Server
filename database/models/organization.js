@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * The models/index file will call this method automatically.
      */
     static associate(models) {
       // define association here
@@ -29,8 +29,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     address: {
-    phone: DataTypes.INTEGER,
-    allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    phone: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     },
     email: {
       type: DataTypes.STRING,
@@ -40,8 +44,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    aboutText: DataTypes.TEXT,
-    allowNull: true
+    aboutText: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
   }, {
     sequelize,
     paranoid: true,

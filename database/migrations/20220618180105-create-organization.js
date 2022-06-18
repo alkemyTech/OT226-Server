@@ -9,19 +9,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       image: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      address: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
       phone: {
         type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      address: {
+        type: Sequelize.STRING,
         allowNull: true
       },
       email: {
@@ -44,7 +43,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      deleteAt: {
+      deletedAt: {
+        allowNull: false,
         type: Sequelize.DATE
       }
     });

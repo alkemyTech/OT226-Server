@@ -5,7 +5,7 @@ const { Organization } = require('../database/models')
 exports.getPublicOrganizations = async () => {
   try {
     const getPublicOrganizations = await Organization.findAll({
-      attributes: ['image', 'phone', 'address'],
+      attributes: ['name', 'image', 'phone', 'address'],
     })
     if (!getPublicOrganizations) {
       throw new ErrorObject('No index found', 404)

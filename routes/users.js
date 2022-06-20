@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const { getList } = require('../controllers/users')
+const { get } = require('../controllers/users')
 
 // /users
-router.get('/', getList) // obtain the list of users
+router.get('/', get) // obtain the list of users
 
 module.exports = router

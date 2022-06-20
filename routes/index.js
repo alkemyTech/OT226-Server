@@ -1,6 +1,7 @@
 const express = require('express')
 const { get } = require('../controllers/index')
 const usersRouter = require('./users')
+const organizationRouter = require('./organization')
 
 const router = express.Router()
 
@@ -9,5 +10,7 @@ router.get('/', get)
 
 // users route handler
 router.use('/users', usersRouter)
+
+router.use('/organization', organizationRouter)
 
 module.exports = router

@@ -6,7 +6,7 @@ module.exports = {
   getUserList: async () => {
     try {
       const users = await User.findAll()
-      if (!users) {
+      if (!users || users.length === 0) {
         throw new ErrorObject('No users found', 404)
       }
       return users

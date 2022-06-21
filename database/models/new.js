@@ -18,11 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   New.init({
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
     name: DataTypes.STRING,
     content: DataTypes.TEXT,
     image: DataTypes.STRING,

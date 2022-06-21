@@ -1,5 +1,5 @@
 const { check } = require('express-validator')
-const validateResults = require('../helpers/handleValidator')
+const validateResults = require('../middlewares/handleValidator')
 
 const createNew = [
   check('name').exists().notEmpty(),

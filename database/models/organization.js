@@ -15,31 +15,31 @@ module.exports = (sequelize, DataTypes) => {
   };
   Organization.init({
     name:{
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     image: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     address: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     phone: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     email: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     welcomeText: {
-      type: DataType.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     aboutText: {
-      type: DataType.TEXT,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
   }, {

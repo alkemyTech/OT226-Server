@@ -1,4 +1,4 @@
-exports.userDataValidateSchemaBased = {
+exports.userRegisterSchema = {
   userName: {
     exists: {
       errorMessage: 'User name is required',

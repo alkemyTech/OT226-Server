@@ -1,14 +1,34 @@
-const { check } = require('express-validator')
-const validateResults = require('../middlewares/handleValidator')
-
-const createNew = [
-  check('name').exists().notEmpty(),
-  check('content').exists().notEmpty(),
-  check('image').exists().notEmpty(),
-  check('categoryId').exists().notEmpty(),
-  (req, res, next) => validateResults(req, res, next),
-]
-
-module.exports = {
-  createNew,
+exports.news = {
+  name: {
+    exists: {
+      errorMessage: 'Name does not Exist',
+    },
+    notEmpty: {
+      errorMessage: 'Name is empty',
+    },
+  },
+  content: {
+    exists: {
+      errorMessage: 'Content does not Exist',
+    },
+    notEmpty: {
+      errorMessage: 'Content is empty',
+    },
+  },
+  image: {
+    exists: {
+      errorMessage: 'Image does not Exist',
+    },
+    notEmpty: {
+      errorMessage: 'Image is empty',
+    },
+  },
+  categoryId: {
+    exists: {
+      errorMessage: 'CategoryId does not Exist',
+    },
+    notEmpty: {
+      errorMessage: 'CategoryId is empty',
+    },
+  },
 }

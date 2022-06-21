@@ -1,10 +1,11 @@
 const express = require('express')
 
+const schemaValidator = require('../middlewares/validator')
+const { news } = require('../schemas/new')
 const { post } = require('../controllers/news')
-const { createNew } = require('../schemas/new')
 
 const router = express.Router()
 
-router.post('/', createNew, post)
+router.post('/', schemaValidator(news), post)
 
 module.exports = router

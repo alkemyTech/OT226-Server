@@ -14,12 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Organization.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: Sequelize.INTEGER
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false

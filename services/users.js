@@ -3,7 +3,7 @@ const { User } = require('../database/models')
 
 module.exports = {
   // query in the database in the users model
-  getUserList: async () => {
+  getUsers: async () => {
     try {
       const users = await User.findAll()
       if (!users || users.length === 0) {

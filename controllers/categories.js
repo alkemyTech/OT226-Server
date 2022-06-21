@@ -1,13 +1,13 @@
 const createHttpError = require('http-errors')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { getAll } = require('../services/categories')
+const { getCategories } = require('../services/categories')
 
 // example of a controller. First call the service, then build the controller method
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
-      const response = await getAll()
+      const response = await getCategories()
       endpointResponse({
         res,
         message: 'Categories retrieved successfully',

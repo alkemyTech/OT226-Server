@@ -2,15 +2,15 @@ const { ErrorObject } = require('../helpers/error')
 const { Category } = require('../database/models')
 
 // example of a service
-exports.getAll = async () => {
+exports.getCategories = async () => {
   try {
-    const getCategory = await Category.findAll({
+    const getCategories = await Category.findAll({
       attributes: ['name'],
     })
-    if (!getCategory) {
+    if (!getCategories) {
       throw new ErrorObject('No index found', 404)
     }
-    return getCategory
+    return getCategories
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

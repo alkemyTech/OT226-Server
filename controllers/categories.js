@@ -10,7 +10,7 @@ module.exports = {
       const response = await getAll()
       endpointResponse({
         res,
-        message: 'Organizations retrieved successfully',
+        message: 'Categories retrieved successfully',
         body: response,
       })
     } catch (error) {

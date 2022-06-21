@@ -21,4 +21,21 @@ module.exports = {
       next(httpError)
     }
   }),
+  getCategory: catchAsync(async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const response = await getCategories(id)
+      endpointResponse({
+        res,
+        message: 'Categories retrieved successfully',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error retrieving index] - [index - GET]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
 }

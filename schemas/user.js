@@ -1,5 +1,12 @@
 exports.userRegisterSchema = {
-  userName: {
+  firstName: {
+    exists: {
+      errorMessage: 'User name is required',
+      options: { checkFalsy: true },
+    },
+    isString: { errorMessage: 'User name should be string' },
+  },
+  lastName: {
     exists: {
       errorMessage: 'User name is required',
       options: { checkFalsy: true },

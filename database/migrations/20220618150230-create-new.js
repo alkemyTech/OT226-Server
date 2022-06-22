@@ -17,6 +17,9 @@ module.exports = {
       image: {
         type: Sequelize.TEXT
       },
+      type: {
+        type: Sequelize.STRING
+      },
       categoryId: {
         type: Sequelize.INTEGER
       },

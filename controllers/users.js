@@ -22,7 +22,8 @@ module.exports = {
   }),
   post: catchAsync(async (req, res, next) => {
     try {
-      const users = await registerUser(req.body)
+      const { body } = req
+      const users = await registerUser(body)
       endpointResponse({
         res,
         message: 'Users created successfully',

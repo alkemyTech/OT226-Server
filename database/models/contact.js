@@ -7,9 +7,6 @@ module.exports = (sequelize, DataTypes) => {
   class Contact extends Model {
 
     static associate(models) {
-      Contact.belongsTo( models.User, {
-        foreignKey: 'userId'
-      })
     }
   }
   Contact.init({
@@ -17,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     email: DataTypes.STRING,
     messege: DataTypes.STRING,
-    userId: DataTypes.INTEGER, // control de que usuario creo el contacto
   }, {
     sequelize,
     timestamps:true,

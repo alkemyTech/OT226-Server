@@ -21,6 +21,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       categoryId: {
+        type: Sequelize.INTEGER
+      },
+      categoryId: {
         type: Sequelize.INTEGER,
         references:{
           model:'Categories',
@@ -36,10 +39,6 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      deletedAt:{
-        allowNull: true,
         type: Sequelize.DATE
       }
     });

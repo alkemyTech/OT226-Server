@@ -37,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Member',

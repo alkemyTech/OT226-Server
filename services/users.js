@@ -1,6 +1,6 @@
+const bcrypt = require('bcrypt')
 const { ErrorObject } = require('../helpers/error')
 const { User } = require('../database/models')
-const bcrypt = require('bcrypt')
 
 module.exports = {
   // query in the database in the users model
@@ -28,7 +28,7 @@ module.exports = {
   },
   loginUser: async ({ email, password }) => {
     try {
-      const user = await User.findOne({ where: { email } }) //! where
+      const user = await User.findOne({ where: { email } })
       const validatePass = user && bcrypt.compareSync(password, user.password)
       if (!user || !validatePass) throw new ErrorObject('Invalid credentials', 401)
       return user

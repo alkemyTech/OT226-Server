@@ -19,12 +19,6 @@ module.exports = {
       message: {
         type: Sequelize.STRING
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Users', key: 'id' }, // el model debe estar en plural, ver 1er parámetro en createTable referenciada
-        onDelete: 'no action',
-        onUpdate: 'no action',
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

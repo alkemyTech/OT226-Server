@@ -30,3 +30,12 @@ exports.getCategoryById = async (id) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.createCategory = async (name) => {
+  try {
+    const createCategory = await Category.create(name)
+    return createCategory
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

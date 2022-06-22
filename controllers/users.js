@@ -1,7 +1,9 @@
 const createHttpError = require('http-errors')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { getUsers, destroyUser, loginUser } = require('../services/users')
+const {
+  getUsers, destroyUser, loginUser, registerUser,
+} = require('../services/users')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -40,13 +42,7 @@ module.exports = {
   login: catchAsync(async (req, res, next) => {
     const { email, password } = req.body
     try {
-      const user = loginUser(email, password)
-      if (!user) {
-        endpointResponse({
-          res,
-          status: false,
-        })
-      }
+      const user = await loginUser({ email, password })
       endpointResponse({
         res,
         message: 'User logged in successfully',
@@ -55,7 +51,7 @@ module.exports = {
     } catch (error) {
       const httpError = createHttpError(
         error.statusCode,
-        `[Error retrieving user] - [user - POST]: ${error.message}`,
+        `[Error retrieving user] - [user - POST]: ${error.message} : { OK : FALSE } `,
       )
       next(httpError)
     }

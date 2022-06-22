@@ -14,15 +14,4 @@ module.exports = {
       throw new ErrorObject(error.message, error.statusCode || 500)
     }
   },
-  destroyUser: async (id) => {
-    try {
-      const user = await User.destroy({ where: { id } })
-      if (!user || user.length === 0) {
-        throw new ErrorObject('No user found', 404)
-      }
-      return user
-    } catch (error) {
-      throw new ErrorObject(error.message, error.statusCode || 500)
-    }
-  },
 }

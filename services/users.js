@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt')
 const { ErrorObject } = require('../helpers/error')
 const { User } = require('../database/models')
 
@@ -16,9 +15,13 @@ exports.getUsers = async () => {
 }
 // getUserByMail, se la paso al register
 // query in the database in the users model
-exports.registerUser = async (registerInformation) => {
+exports.registerUser = async (body) => {
   try {
-    const user = await User.create(registerInformation)
+    const prevUser = await this.getUserByMail(body.email)
+    if (prevUser) {
+      throw new ErrorObject('Email already exists', 404)
+    }
+    const user = await User.create(body)
     if (!user || user.length === 0) {
       throw new ErrorObject('User not created', 404)
     }
@@ -37,4 +40,12 @@ exports.destroyUser = async (id) => {
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
+}
+
+exports.getUserByMail = async (email) => {
+  const user = await User.findOne({
+    where: { email },
+  })
+
+  return user
 }

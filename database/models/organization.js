@@ -12,47 +12,41 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
+  }
   Organization.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     phone: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     welcomeText: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     aboutText: {
       type: DataTypes.TEXT,
-      allowNull: true
-    }
+      allowNull: true,
+    },
   }, {
     sequelize,
     paranoid: true,
     timestamps: true,
     modelName: 'Organization',
-  });
-  return Organization;
-};
+  })
+  return Organization
+}

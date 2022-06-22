@@ -1,21 +1,24 @@
 const createHttpError = require('http-errors')
+
+const { create } = require('../services/news')
+
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { getUsers } = require('../services/users')
 
 module.exports = {
-  get: catchAsync(async (req, res, next) => {
+  post: catchAsync(async (req, res, next) => {
+    const { body } = req
     try {
-      const users = await getUsers()
+      const response = await create(body)
       endpointResponse({
         res,
-        message: 'Users list retrieved successfully',
-        body: users,
+        message: 'new created successfully',
+        body: response,
       })
     } catch (error) {
       const httpError = createHttpError(
         error.statusCode,
-        `[Error retrieving users list] - [users - GET]: ${error.message}`,
+        `[Error creating new] - [new - POST]: ${error.message}`,
       )
       next(httpError)
     }

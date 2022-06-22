@@ -3,6 +3,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('News', {
       id: {
+        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
@@ -16,8 +17,21 @@ module.exports = {
       image: {
         type: Sequelize.TEXT
       },
+      type: {
+        type: Sequelize.STRING
+      },
       categoryId: {
         type: Sequelize.INTEGER
+      },
+      categoryId: {
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Categories',
+          key:'id'
+        },
+        onUpdate:'cascade',
+        onDelete:'cascade',
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

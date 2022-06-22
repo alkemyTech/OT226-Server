@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       image: {
         type: Sequelize.STRING,
@@ -21,7 +22,7 @@ module.exports = {
       },
       address: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       email: {
         type: Sequelize.STRING,
@@ -33,20 +34,19 @@ module.exports = {
       },
       aboutText: {
         type: Sequelize.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       createdAt: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
       },
       updatedAt: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
       },
       deletedAt: {
-        allowNull: true,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

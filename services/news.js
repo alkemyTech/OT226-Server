@@ -35,3 +35,15 @@ exports.getNews = async (idNew) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.deleteNews = async (idNew) => {
+  try {
+    const news = await New.destroy({ where: { id: idNew } })
+    if (!news || news.length === 0) {
+      throw new ErrorObject('No index found', 404)
+    }
+    return news
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

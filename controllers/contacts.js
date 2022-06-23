@@ -5,13 +5,12 @@ const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
 
 module.exports = {
-  post: catchAsync(async (req, res, next) => {
-    const { body } = req
+  get: catchAsync(async (req, res, next) => {
     try {
-      const response = await create(body)
+      const response = await getContacts()
       endpointResponse({
         res,
-        message: 'contact created successfully',
+        message: 'Contacts retrieved successfully',
         body: response,
       })
     } catch (error) {
@@ -22,15 +21,13 @@ module.exports = {
       next(httpError)
     }
   }),
-}
-
-module.exports = {
-  get: catchAsync(async (req, res, next) => {
+  post: catchAsync(async (req, res, next) => {
+    const { body } = req
     try {
-      const response = await getContacts()
+      const response = await create(body)
       endpointResponse({
         res,
-        message: 'Contacts retrieved successfully',
+        message: 'contact created successfully',
         body: response,
       })
     } catch (error) {

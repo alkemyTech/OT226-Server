@@ -83,7 +83,7 @@ module.exports = {
     try {
       const { id } = req.params
       const {
-        firstName, lastName, email, password, photo, newPassword
+        firstName, lastName, email, password, photo, newPassword,
       } = req.body
       const user = await putUser(id, firstName, lastName, email, password, photo, newPassword)
       endpointResponse({

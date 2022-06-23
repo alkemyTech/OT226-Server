@@ -3,7 +3,11 @@ const bcrypt = require('bcrypt')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
 const {
-  getUsers, destroyUser, registerUser, loginUser,
+  getUsers,
+  destroyUser,
+  registerUser,
+  loginUser,
+  putUserDataById,
 } = require('../services/users')
 
 module.exports = {
@@ -86,7 +90,7 @@ module.exports = {
         firstName, lastName, email, password, photo,
       } = req.body
       const hastPass = bcrypt.hashSync(password, 10)
-      const user = await putUser(id, firstName, lastName, email, hastPass, photo)
+      const user = await putUserDataById(id, firstName, lastName, email, hastPass, photo)
       endpointResponse({
         res,
         message: 'User updated successfully',

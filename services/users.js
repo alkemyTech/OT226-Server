@@ -15,35 +15,6 @@ exports.getUsers = async () => {
   }
 }
 
-// query in the database in the users model
-exports.registerUser = async (body) => {
-  try {
-    const prevUser = await this.getUserByMail(body.email)
-    if (prevUser) {
-      throw new ErrorObject('Email already exists', 404)
-    }
-    const user = await User.create(body)
-    if (!user || user.length === 0) {
-      throw new ErrorObject('User not created', 404)
-    }
-    return user
-  } catch (error) {
-    throw new ErrorObject(error.message, error.statusCode || 500)
-  }
-}
-
-exports.destroyUser = async (id) => {
-  try {
-    const user = await User.destroy({ where: { id } })
-    if (!user || user.length === 0) {
-      throw new ErrorObject('No user found', 404)
-    }
-    return user
-  } catch (error) {
-    throw new ErrorObject(error.message, error.statusCode || 500)
-  }
-}
-
 exports.destroyUser = async (id) => {
   try {
     const user = await User.destroy({ where: { id } })
@@ -61,6 +32,23 @@ exports.loginUser = async ({ email, password }) => {
     const user = await User.findOne({ where: { email } })
     const validatePass = user && bcrypt.compareSync(password, user.password)
     if (!user || !validatePass) throw new ErrorObject('Invalid credentials', 401)
+    return user
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
+// query in the database in the users model
+exports.registerUser = async (body) => {
+  try {
+    const prevUser = await this.getUserByMail(body.email)
+    if (prevUser) {
+      throw new ErrorObject('Email already exists', 404)
+    }
+    const user = await User.create(body)
+    if (!user || user.length === 0) {
+      throw new ErrorObject('User not created', 404)
+    }
     return user
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)

@@ -8,7 +8,6 @@ const authRouter = require('./auth')
 
 const router = express.Router()
 
-// example of a route with index controller get function
 router.get('/', get)
 
 router.use('/organization', organizationRouter)

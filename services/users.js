@@ -62,3 +62,29 @@ exports.getUserByMail = async (email) => {
 
   return user
 }
+
+exports.putUserDataById = async (id, firstName, lastName, email, hastPass, photo) => {
+  try {
+    const user = await User.findOne({ where: { id } })
+    if (!user) {
+      throw new ErrorObject('User not found', 404)
+    } else {
+      const userUpdated = await User.update(
+        {
+          firstName,
+          lastName,
+          email,
+          password: hastPass,
+          photo,
+        },
+        {
+          where: { id },
+        },
+      )
+
+      return userUpdated
+    }
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

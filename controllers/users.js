@@ -79,4 +79,25 @@ module.exports = {
       next(httpError)
     }
   }),
+  put: catchAsync(async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const {
+        firstName, lastName, email, password, photo,
+      } = req.body
+      const hastPass = bcrypt.hashSync(password, 10)
+      const user = await putUser(id, firstName, lastName, email, hastPass, photo)
+      endpointResponse({
+        res,
+        message: 'User updated successfully',
+        body: user,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error retrieving user delete] - [user - DELETE]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
 }

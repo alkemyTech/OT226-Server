@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const schemaValidator = require('../middlewares/validator')
+const { schemaValidator } = require('../middlewares/validator')
 const { user } = require('../schemas/user')
 
 const { get, put } = require('../controllers/users')

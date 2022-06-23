@@ -62,3 +62,33 @@ exports.getUserByMail = async (email) => {
 
   return user
 }
+
+exports.putUser = async (id, firstName, lastName, email, password, photo, newPassword) => {
+  try {
+    const user = await User.findOne({ where: { id } })
+    const validatePass = bcrypt.compareSync(password, user.password)
+    if (!user) {
+      throw new ErrorObject('User not found', 404)
+    } else if (!validatePass) {
+      throw new ErrorObject('Password incorrect', 404)
+    } else {
+      const hashPass = bcrypt.hashSync(newPassword, 10)
+      const userUpdated = await User.update(
+        {
+          firstName,
+          lastName,
+          email,
+          password: hashPass,
+          photo,
+        },
+        {
+          where: { id },
+        },
+      )
+
+      return userUpdated
+    }
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

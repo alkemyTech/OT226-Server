@@ -2,13 +2,9 @@ const createHttpError = require('http-errors')
 const bcrypt = require('bcrypt')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-<<<<<<< HEAD
-const { getUsers, destroyUser, registerUser } = require('../services/users')
-=======
 const {
   getUsers, destroyUser, registerUser, loginUser,
 } = require('../services/users')
->>>>>>> 213c84dc73e9336683e68ab02fd4593650d4c1a1
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -29,9 +25,6 @@ module.exports = {
   }),
   post: catchAsync(async (req, res, next) => {
     try {
-<<<<<<< HEAD
-      const users = await registerUser(req.body)
-=======
       const { body } = req
 
       const encryptedPassword = bcrypt.hashSync(body.password, 10)
@@ -39,7 +32,6 @@ module.exports = {
       body.roleId = 1
 
       const users = await registerUser(body)
->>>>>>> 213c84dc73e9336683e68ab02fd4593650d4c1a1
       endpointResponse({
         res,
         message: 'Users created successfully',

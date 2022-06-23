@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     description: { type: DataTypes.STRING },
-    image: { type: DataTypes.STRING }
+    image: { type: DataTypes.STRING },
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
     paranoid: true,

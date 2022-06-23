@@ -63,6 +63,7 @@ exports.getUserByMail = async (email) => {
   return user
 }
 
+// User updated
 exports.putUser = async (id, firstName, lastName, email, password, photo, newPassword) => {
   try {
     const user = await User.findOne({ where: { id } })

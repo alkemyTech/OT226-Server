@@ -65,6 +65,13 @@ exports.getUserByMail = async (email) => {
   return user
 }
 
+exports.getUserById = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+  })
+
+  return user
+}
 exports.putUserDataById = async (id, firstName, lastName, email, hastPass, photo) => {
   try {
     const user = await User.findOne({ where: { id } })

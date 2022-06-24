@@ -4,10 +4,8 @@ exports.verifyUsers = async (req, res, next) => {
   const token = req.headers.authorization
   try {
     const response = await validateJWT(token)
-    if (response) {
-      next()
-      return
-    }
+    req.body.response = response
+    next()
   } catch (error) {
     res.status(401).send({
       code: 401,

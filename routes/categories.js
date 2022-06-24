@@ -1,5 +1,5 @@
 const express = require('express')
-const schemaValidator = require('../middlewares/validator')
+const { schemaValidator } = require('../middlewares/validator')
 const { category } = require('../schemas/category')
 const { get, getCategoryById, post } = require('../controllers/categories')
 

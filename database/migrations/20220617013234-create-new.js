@@ -21,9 +21,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       categoryId: {
-        type: Sequelize.INTEGER
-      },
-      categoryId: {
         type: Sequelize.INTEGER,
         references:{
           model:'Categories',

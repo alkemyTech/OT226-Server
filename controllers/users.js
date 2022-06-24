@@ -63,13 +63,16 @@ module.exports = {
     }
   }),
   login: catchAsync(async (req, res, next) => {
-    const { email, password } = req.body
+    const { email, password, token } = req.body
     try {
       const user = await loginUser({ email, password })
       endpointResponse({
         res,
         message: 'User logged in successfully',
-        body: user,
+        body: {
+          user,
+          token,
+        },
       })
     } catch (error) {
       const httpError = createHttpError(

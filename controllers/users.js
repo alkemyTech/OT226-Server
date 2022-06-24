@@ -5,6 +5,7 @@ const { catchAsync } = require('../helpers/catchAsync')
 const {
   getUsers, destroyUser, registerUser, loginUser,
 } = require('../services/users')
+const { createJWT } = require('../helpers/jwt')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -63,9 +64,11 @@ module.exports = {
     }
   }),
   login: catchAsync(async (req, res, next) => {
-    const { email, password, token } = req.body
+    const { email, password } = req.body
+    let token
     try {
       const user = await loginUser({ email, password })
+      token = createJWT(user)
       endpointResponse({
         res,
         message: 'User logged in successfully',

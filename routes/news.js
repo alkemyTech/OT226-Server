@@ -1,6 +1,6 @@
 const express = require('express')
 
-const schemaValidator = require('../middlewares/validator')
+const { schemaValidator } = require('../middlewares/validator')
 const { news } = require('../schemas/new')
 const { post, get, destroy } = require('../controllers/news')
 

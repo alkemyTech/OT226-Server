@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const { endpointResponse } = require('../helpers/success')
 
 exports.createJWT = (req, res, next) => {
   const { id, firstName, roleId } = req.body
@@ -24,10 +23,9 @@ exports.verifyUsers = (req, res, next) => {
       return
     }
   } catch (error) {
-    endpointResponse({
-      res,
-      message: 'Invalid Token',
-      error,
+    res.status(403).send({
+      code: 403,
+      message: 'token no validate',
     })
   }
 }

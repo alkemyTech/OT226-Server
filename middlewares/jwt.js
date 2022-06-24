@@ -26,7 +26,7 @@ exports.verifyUsers = (req, res, next) => {
   } catch (error) {
     endpointResponse({
       res,
-      message: 'token no validate',
+      message: 'Invalid Token',
       error,
     })
   }

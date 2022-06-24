@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const { ErrorObject } = require('../helpers/error')
 const { User } = require('../database/models')
+const { createJWT } = require('../helpers/jwt')
 
 // query in the database in the users model
 exports.getUsers = async () => {
@@ -32,7 +33,8 @@ exports.loginUser = async ({ email, password }) => {
     const user = await User.findOne({ where: { email } })
     const validatePass = user && bcrypt.compareSync(password, user.password)
     if (!user || !validatePass) throw new ErrorObject('Invalid credentials', 401)
-    return user
+    const token = createJWT(user)
+    return { ...user.dataValues, token } // copio valores de user - add token
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
@@ -69,4 +71,29 @@ exports.getUserById = async (id) => {
   })
 
   return user
+}
+exports.putUserDataById = async (id, firstName, lastName, email, hastPass, photo) => {
+  try {
+    const user = await User.findOne({ where: { id } })
+    if (!user) {
+      throw new ErrorObject('User not found', 404)
+    } else {
+      const userUpdated = await User.update(
+        {
+          firstName,
+          lastName,
+          email,
+          password: hastPass,
+          photo,
+        },
+        {
+          where: { id },
+        },
+      )
+
+      return userUpdated
+    }
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
 }

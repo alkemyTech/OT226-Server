@@ -3,7 +3,11 @@ const bcrypt = require('bcrypt')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
 const {
-  getUsers, destroyUser, registerUser, loginUser,
+  getUsers,
+  destroyUser,
+  registerUser,
+  loginUser,
+  putUserDataById,
 } = require('../services/users')
 
 module.exports = {
@@ -75,6 +79,27 @@ module.exports = {
       const httpError = createHttpError(
         error.statusCode,
         `[Error retrieving user] - [user - POST]: ${error.message} : { OK : FALSE } `,
+      )
+      next(httpError)
+    }
+  }),
+  put: catchAsync(async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const {
+        firstName, lastName, email, password, photo,
+      } = req.body
+      const hastPass = bcrypt.hashSync(password, 10)
+      const user = await putUserDataById(id, firstName, lastName, email, hastPass, photo)
+      endpointResponse({
+        res,
+        message: 'User updated successfully',
+        body: user,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error retrieving user delete] - [user - DELETE]: ${error.message}`,
       )
       next(httpError)
     }

@@ -62,3 +62,11 @@ exports.getUserByMail = async (email) => {
 
   return user
 }
+
+exports.getUserById = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+  })
+
+  return user
+}

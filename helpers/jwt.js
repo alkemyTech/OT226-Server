@@ -17,10 +17,15 @@ exports.validateJWT = async (token) => jwt.verify(token, process.env.JWT_KEY)
 
 exports.decryptJWT = (header) => {
   const token = header.authorization
-  const { id, firstName, roleId } = jwt.verify(token, process.env.JWT_KEY)
-  return {
-    id,
-    firstName,
-    roleId,
+  try {
+    const { id, firstName, roleId } = jwt.verify(token, process.env.JWT_KEY)
+    return {
+      id,
+      firstName,
+      roleId,
+    }
+  } catch (error) {
+    const message = `[Token not provided or invalid] - [Access - Denied]: ${error.message}`
+    return message
   }
 }

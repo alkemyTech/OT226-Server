@@ -8,7 +8,9 @@ const {
   registerUser,
   loginUser,
   putUserDataById,
+  getUserById,
 } = require('../services/users')
+const { decryptJWT } = require('../helpers/jwt')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -100,6 +102,23 @@ module.exports = {
       const httpError = createHttpError(
         error.statusCode,
         `[Error retrieving user delete] - [user - DELETE]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
+  getInformation: catchAsync(async (req, res, next) => {
+    const { id } = decryptJWT(req.headers)
+    try {
+      const user = await getUserById(id)
+      endpointResponse({
+        res,
+        message: 'User successfully',
+        body: user,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error retrieving user Information] - [user - me]: ${error.message}`,
       )
       next(httpError)
     }

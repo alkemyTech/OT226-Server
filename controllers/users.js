@@ -106,7 +106,7 @@ module.exports = {
       next(httpError)
     }
   }),
-  getInformation: catchAsync(async (req, res, next) => {
+  getUserByToken: catchAsync(async (req, res, next) => {
     const { id } = decryptJWT(req.headers)
     try {
       const user = await getUserById(id)

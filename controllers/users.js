@@ -9,6 +9,7 @@ const {
   loginUser,
   putUserDataById,
 } = require('../services/users')
+const { welcomeEmail } = require('./email')
 
 module.exports = {
   get: catchAsync(async (req, res, next) => {
@@ -36,6 +37,7 @@ module.exports = {
       body.roleId = 1
 
       const users = await registerUser(body)
+      welcomeEmail(users.email)
       endpointResponse({
         res,
         message: 'Users created successfully',

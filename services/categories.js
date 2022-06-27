@@ -39,3 +39,15 @@ exports.createCategory = async (name) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.deleteCategory = async (idCategory) => {
+  try {
+    const category = await Category.destroy({ where: { id: idCategory } })
+    if (!category || category.length === 0) {
+      throw new ErrorObject('No category found', 404)
+    }
+    return category
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

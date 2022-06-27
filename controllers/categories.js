@@ -1,7 +1,9 @@
 const createHttpError = require('http-errors')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { getCategories, getCategoryById, createCategory } = require('../services/categories')
+const {
+  getCategories, getCategoryById, createCategory, deleteCategory,
+} = require('../services/categories')
 
 // example of a controller. First call the service, then build the controller method
 module.exports = {
@@ -51,6 +53,22 @@ module.exports = {
       const httpError = createHttpError(
         error.statusCode,
         `[Error creating category] - [category - POST]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
+  destroy: catchAsync(async (req, res, next) => {
+    try {
+      const response = await deleteCategory(req.params.id)
+      endpointResponse({
+        res,
+        message: 'Category deleted successfully',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error deleting category] - [category - DELETE]: ${error.message}`,
       )
       next(httpError)
     }

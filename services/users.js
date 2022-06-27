@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const { ErrorObject } = require('../helpers/error')
 const { User } = require('../database/models')
 const { createJWT } = require('../helpers/jwt')
+const { welcomeEmail } = require('../controllers/email')
 
 // query in the database in the users model
 exports.getUsers = async () => {
@@ -48,6 +49,7 @@ exports.registerUser = async (body) => {
       throw new ErrorObject('Email already exists', 404)
     }
     const user = await User.create(body)
+    welcomeEmail(user.email)
     if (!user || user.length === 0) {
       throw new ErrorObject('User not created', 404)
     }
@@ -65,6 +67,13 @@ exports.getUserByMail = async (email) => {
   return user
 }
 
+exports.getUserById = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+  })
+
+  return user
+}
 exports.putUserDataById = async (id, firstName, lastName, email, hastPass, photo) => {
   try {
     const user = await User.findOne({ where: { id } })

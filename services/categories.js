@@ -40,6 +40,33 @@ exports.createCategory = async (name) => {
   }
 }
 
+exports.updateCategory = async (body, id) => {
+  const { name, description, image } = body
+  try {
+    const category = await Category.findOne({
+      where: { id },
+    })
+    if (!category) {
+      throw new ErrorObject('No index found', 404)
+    }
+    const response = await Category.update(
+      {
+        name,
+        description,
+        image,
+      },
+      {
+        where: {
+          id,
+        },
+      },
+    )
+    return response
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
 exports.deleteCategory = async (idCategory) => {
   try {
     const category = await Category.destroy({ where: { id: idCategory } })

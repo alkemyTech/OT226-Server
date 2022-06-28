@@ -1,7 +1,7 @@
 const createHttpError = require('http-errors')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { createActivity } = require('../services/activities')
+const { createActivity, updateActivity } = require('../services/activities')
 
 // example of a controller. First call the service, then build the controller method
 module.exports = {
@@ -19,6 +19,24 @@ module.exports = {
       const httpError = createHttpError(
         error.statusCode,
         `[Error creating activity] - [activity - POST]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
+  put: catchAsync(async (req, res, next) => {
+    const { body } = req
+    const { id } = req.params
+    try {
+      await updateActivity(body, id)
+      endpointResponse({
+        code: 200,
+        res,
+        message: 'Activity successfully updated',
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error updating activity] - [activity - PUT]: ${error.message}`,
       )
       next(httpError)
     }

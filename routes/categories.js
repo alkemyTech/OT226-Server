@@ -4,13 +4,14 @@ const { category } = require('../schemas/category')
 const {
   get, getCategoryById, post, put,
 } = require('../controllers/categories')
-const { isAuthenticatedUser } = require('../middlewares/auth')
+const { verifyUsers } = require('../middlewares/auth')
+const { isAdmin } = require('../middlewares/isAdmin')
 
 const router = express.Router()
 
 router.get('/:id', getCategoryById)
 router.get('/', get)
 router.post('/', schemaValidator(category), post)
-router.put('/:id', isAuthenticatedUser, schemaValidator(category), put)
+router.put('/:id', verifyUsers, isAdmin, schemaValidator(category), put)
 
 module.exports = router

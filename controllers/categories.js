@@ -6,6 +6,7 @@ const {
   getCategoryById,
   createCategory,
   updateCategory,
+  deleteCategory,
 } = require('../services/categories')
 
 // example of a controller. First call the service, then build the controller method

@@ -15,3 +15,17 @@ exports.getOrganizations = async () => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.putOrganization = async (id, body) => {
+  try {
+    const organization = await Organization.findByPk(id)
+    if (!organization) {
+      throw new ErrorObject('Organization not found', 404)
+    } else {
+      const organizationUpdated = await Organization.update(body, { where: { id } })
+      return organizationUpdated
+    }
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

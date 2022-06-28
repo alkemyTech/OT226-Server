@@ -10,3 +10,20 @@ exports.createActivity = async (name) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.updateActivity = async (body, id) => {
+  try {
+    const activity = await Activity.findOne({
+      where: { id },
+    })
+    if (!activity) {
+      throw new ErrorObject('Activity not found', 404)
+    }
+    await Activity.update(body, {
+      where: { id },
+    })
+    return activity
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

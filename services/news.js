@@ -47,3 +47,16 @@ exports.deleteNews = async (idNew) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.updateNews = async (req) => {
+  const { id } = req.params
+  try {
+    const searchNews = await New.findOne({ where: { id } })
+    if (!searchNews || searchNews.length === 0) throw new ErrorObject('News not found', 404)
+
+    const updatedNews = await New.update(req.body, { where: { id } })
+    return updatedNews
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

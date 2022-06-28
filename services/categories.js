@@ -78,4 +78,3 @@ exports.deleteCategory = async (idCategory) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
-

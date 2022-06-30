@@ -1,5 +1,5 @@
 const endpointResponse = ({
-  res, code = 200, status = true, message, body, options, token
+  res, code = 200, status = true, message, body, options, token,
 }) => {
   res.status(code).json({
     code,
@@ -7,7 +7,7 @@ const endpointResponse = ({
     message,
     body,
     options,
-    token
+    token,
   })
 }
 

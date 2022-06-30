@@ -2,6 +2,7 @@ const createHttpError = require('http-errors')
 const { getOrganizations, putOrganization } = require('../services/organization')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
+const { uploadImage } = require('../services/aws')
 
 // example of a controller. First call the service, then build the controller method
 module.exports = {
@@ -24,14 +25,14 @@ module.exports = {
   put: catchAsync(async (req, res, next) => {
     try {
       const { id } = req.params
-      const {
-        image,
-        address,
-        phone,
-        name,
-      } = req.body
+      const { address, phone, name } = req.body
+      const image = req.file
+      const deleteLocal = true
+
+      const uploadedImageRoute = await uploadImage(image, deleteLocal)
+
       const body = {
-        image,
+        image: uploadedImageRoute,
         address,
         phone,
         name,
@@ -39,7 +40,7 @@ module.exports = {
       const response = await putOrganization(id, body)
       endpointResponse({
         res,
-        message: 'Organizations retrieved successfully',
+        message: 'Organization updated successfully',
         body: response,
       })
     } catch (error) {

@@ -6,6 +6,7 @@ const {
   getCategoryById,
   createCategory,
   updateCategory,
+  deleteCategory,
 } = require('../services/categories')
 
 // example of a controller. First call the service, then build the controller method
@@ -76,6 +77,22 @@ module.exports = {
         `[Error update category] - [category - PUT]: ${error.message}`,
       )
       return next(httpError)
+    }
+  }),
+  destroy: catchAsync(async (req, res, next) => {
+    try {
+      const response = await deleteCategory(req.params.id)
+      endpointResponse({
+        res,
+        message: 'Category deleted successfully',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error deleting category] - [category - DELETE]: ${error.message}`,
+      )
+      next(httpError)
     }
   }),
 }

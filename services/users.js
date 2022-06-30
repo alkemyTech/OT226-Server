@@ -54,9 +54,7 @@ exports.registerUser = async (body) => {
       throw new ErrorObject('User not created', 404)
     }
     const token = createJWT(user)
-
-    const data = [user, token]
-    return data
+    return { user, token }
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

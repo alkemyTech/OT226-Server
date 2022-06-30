@@ -38,10 +38,12 @@ module.exports = {
       body.roleId = 1
 
       const users = await registerUser(body)
+      const [user, token] = users
       endpointResponse({
         res,
         message: 'Users created successfully',
-        body: users,
+        body: user,
+        token,
       })
     } catch (error) {
       const httpError = createHttpError(

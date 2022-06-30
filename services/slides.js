@@ -1,5 +1,5 @@
 const { ErrorObject } = require('../helpers/error')
-const { Slide } = require('../database/models')
+const { Slide, sequelize } = require('../database/models')
 
 exports.getSlides = async () => {
   try {
@@ -18,13 +18,15 @@ exports.createSlider = async (body) => {
     imageUrl, text, order, organizationId,
   } = body
   try {
+    const count = await sequelize.query('SELECT count(*) FROM slides')
     const slides = await Slide.create({
       imageUrl,
       text,
-      order,
+      order: order !== undefined ? order : count[0][0]['count(*)'] + 1,
       organizationId,
     })
-    return slides
+
+    return { slides }
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

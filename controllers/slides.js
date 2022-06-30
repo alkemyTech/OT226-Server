@@ -1,9 +1,9 @@
-const fs = require('fs')
 const createHttpError = require('http-errors')
 const { getSlides, createSlider } = require('../services/slides')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
 const { uploadImage } = require('../services/aws')
+const { enCode64 } = require('../helpers/enCode64')
 // const { base64Encode } = require('../helpers/64encode')
 
 // example of a controller. First call the service, then build the controller method
@@ -27,16 +27,7 @@ module.exports = {
   post: catchAsync(async (req, res, next) => {
     try {
       const { order, text, organizationId } = req.body
-
-      const img = fs.readFileSync(req.file.path)
-      const encodeImage = img.toString('base64')
-
-      const finalImg = {
-        contentType: req.file.mimetype,
-        image: Buffer.from(encodeImage, 'base64'),
-        filename: req.file.filename,
-        path: req.file.path,
-      }
+      const finalImg = enCode64(req.file)
       const uploadedImageRoute = await uploadImage(finalImg, false)
 
       const slides = {

@@ -1,11 +1,10 @@
 const express = require('express')
 // const { schemaValidator } = require('../middlewares/validator')
-const { get } = require('../controllers/slides')
-const { verifyUsers } = require('../middlewares/auth')
-const { isAdmin } = require('../middlewares/isAdmin')
+const { get, getSlideById } = require('../controllers/slides')
 
 const router = express.Router()
 
-router.get('/', verifyUsers, isAdmin, get)
+router.get('/', get)
+router.get('/:id', getSlideById)
 
 module.exports = router

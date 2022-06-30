@@ -30,7 +30,7 @@ const s3 = new aws.S3({
   },
 })
 
-exports.uploadImage = async (file, deleteLocal) => {
+exports.uploadImage = async (file, deleteLocal = true) => {
   const fileStream = fs.createReadStream(file.path)
   const uploadParams = {
     Bucket: bucketName,

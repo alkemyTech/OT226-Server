@@ -1,5 +1,6 @@
 const { ErrorObject } = require('../helpers/error')
 const { Slide, Organization, sequelize } = require('../database/models')
+const { request } = require('express')
 
 exports.getSlides = async () => {
   try {
@@ -54,6 +55,21 @@ exports.deleteSlide = async (idSlide) => {
       throw new ErrorObject('No index found', 404)
     }
     return slide
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
+exports.getSlideByOrder = async () => {
+  try {
+    const slides = await Slide.findAll({
+      attributes: ['imageUrl', 'organizationId'],
+      order: [['order', 'ASC']],
+    })
+    if (!slides || slides.length === 0) {
+      throw new ErrorObject('No index found', 404)
+    }
+    return slides
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

@@ -1,7 +1,6 @@
 const { ErrorObject } = require('../helpers/error')
-const { Slide, Organization } = require('../database/models')
+const { Slide, Organization, sequelize } = require('../database/models')
 
-// example of a service
 exports.getSlides = async () => {
   try {
     const getSlides = await Slide.findAll()
@@ -9,6 +8,25 @@ exports.getSlides = async () => {
       throw new ErrorObject('No index found', 404)
     }
     return getSlides
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
+exports.createSlider = async (body) => {
+  const {
+    imageUrl, text, order, organizationId,
+  } = body
+  try {
+    const count = await sequelize.query('SELECT count(*) FROM slides')
+    const slides = await Slide.create({
+      imageUrl,
+      text,
+      order: order !== undefined ? order : count[0][0]['count(*)'] + 1,
+      organizationId,
+    })
+
+    return { slides }
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

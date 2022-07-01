@@ -1,6 +1,5 @@
 const { ErrorObject } = require('../helpers/error')
 const { Slide, Organization, sequelize } = require('../database/models')
-const { request } = require('express')
 
 exports.getSlides = async () => {
   try {

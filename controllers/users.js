@@ -41,7 +41,8 @@ module.exports = {
       endpointResponse({
         res,
         message: 'Users created successfully',
-        body: users,
+        body: users.user,
+        token: users.token,
       })
     } catch (error) {
       const httpError = createHttpError(

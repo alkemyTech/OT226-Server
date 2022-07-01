@@ -39,3 +39,42 @@ exports.createCategory = async (name) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.updateCategory = async (body, id) => {
+  const { name, description, image } = body
+  try {
+    const category = await Category.findOne({
+      where: { id },
+    })
+    if (!category) {
+      throw new ErrorObject('No index found', 404)
+    }
+    const response = await Category.update(
+      {
+        name,
+        description,
+        image,
+      },
+      {
+        where: {
+          id,
+        },
+      },
+    )
+    return response
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
+exports.deleteCategory = async (idCategory) => {
+  try {
+    const category = await Category.destroy({ where: { id: idCategory } })
+    if (!category || category.length === 0) {
+      throw new ErrorObject('No category found', 404)
+    }
+    return category
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

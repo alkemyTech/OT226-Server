@@ -8,7 +8,6 @@ const authRouter = require('./auth')
 const activityRouter = require('./activities')
 const contactRouter = require('./contacts')
 const slideRouter = require('./slides')
-const backOfficeRouter = require('./backoffice')
 
 const router = express.Router()
 
@@ -22,6 +21,5 @@ router.use('/auth', authRouter)
 router.use('/activities', activityRouter)
 router.use('/contacts', contactRouter)
 router.use('/slides', slideRouter)
-router.use('/backoffice', backOfficeRouter)
 
 module.exports = router

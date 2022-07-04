@@ -5,12 +5,12 @@ const { Organization } = require('../database/models')
 exports.getOrganizations = async () => {
   try {
     const getOrganizations = await Organization.findAll({
-      attributes: ['name', 'image', 'phone', 'address'],
+      attributes: ['name', 'image', 'phone', 'address', 'facebookUrl', 'instagramUrl', 'linkedinUrl'],
     })
     if (!getOrganizations) {
       throw new ErrorObject('No index found', 404)
     }
-    return getOrganizations
+    return { getOrganizations }
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

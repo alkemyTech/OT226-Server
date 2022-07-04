@@ -8,7 +8,7 @@ const authRouter = require('./auth')
 const activityRouter = require('./activities')
 const contactRouter = require('./contacts')
 const slideRouter = require('./slides')
-const memberRouter = require('./menbers')
+const memberRouter = require('./members')
 
 const router = express.Router()
 

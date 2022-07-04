@@ -59,6 +59,21 @@ exports.deleteSlide = async (idSlide) => {
   }
 }
 
+exports.getSlideByOrder = async () => {
+  try {
+    const slides = await Slide.findAll({
+      attributes: ['imageUrl', 'organizationId'],
+      order: [['order', 'ASC']],
+    })
+    if (!slides || slides.length === 0) {
+      throw new ErrorObject('No index found', 404)
+    }
+    return slides
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
 exports.updateSlide = async (body, slideId) => {
   const {
     imageUrl, text, order, organizationId,

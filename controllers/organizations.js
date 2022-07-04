@@ -3,16 +3,18 @@ const { getOrganizations, putOrganization } = require('../services/organization'
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
 const { uploadImage } = require('../services/aws')
+const { getSlideByOrder } = require('../services/slides')
 
 // example of a controller. First call the service, then build the controller method
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
-      const response = await getOrganizations('x')
+      const organizations = await getOrganizations()
+      const slides = await getSlideByOrder()
       endpointResponse({
         res,
         message: 'Organizations retrieved successfully',
-        body: response,
+        body: [organizations, slides],
       })
     } catch (error) {
       const httpError = createHttpError(

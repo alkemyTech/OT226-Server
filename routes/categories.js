@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.get('/:id', getCategoryById)
 router.get('/', get)
-router.post('/', schemaValidator(category), post)
+router.post('/', verifyUsers, isAdmin, schemaValidator(category), post)
 router.put('/:id', verifyUsers, isAdmin, schemaValidator(category), put)
 router.delete('/:id', verifyUsers, isAdmin, destroy)
 

@@ -9,7 +9,7 @@ const { localUpload } = require('../services/aws')
 const router = express.Router()
 
 router.get('/', verifyUsers, isAdmin, get)
-router.post('/', localUpload, post)
+router.post('/', verifyUsers, isAdmin, localUpload, post)
 router.get('/:id', getSlideById)
 router.delete('/:id', verifyUsers, isAdmin, destroy)
 router.put('/:id', verifyUsers, isAdmin, localUpload, put)

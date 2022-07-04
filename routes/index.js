@@ -8,6 +8,7 @@ const authRouter = require('./auth')
 const activityRouter = require('./activities')
 const contactRouter = require('./contacts')
 const slideRouter = require('./slides')
+const testimonialRouter = require('./testimonials')
 
 const router = express.Router()
 
@@ -21,5 +22,6 @@ router.use('/auth', authRouter)
 router.use('/activities', activityRouter)
 router.use('/contacts', contactRouter)
 router.use('/slides', slideRouter)
+router.use('/testimonials', testimonialRouter)
 
 module.exports = router

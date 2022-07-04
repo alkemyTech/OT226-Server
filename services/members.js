@@ -21,3 +21,12 @@ exports.deleteMember = async (idMember) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.createMember = async (req) => {
+  try {
+    const newMember = await Member.create(req.body)
+    return newMember
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

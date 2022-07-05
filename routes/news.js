@@ -10,9 +10,9 @@ const { verifyUsers } = require('../middlewares/auth')
 
 const router = express.Router()
 
-router.post('/', schemaValidator(news), post)
+router.post('/', verifyUsers, isAdmin, schemaValidator(news), post)
 router.get('/:id', get)
-router.delete('/:id', destroy)
+router.delete('/:id', verifyUsers, isAdmin, destroy)
 router.put('/:id', verifyUsers, isAdmin, put)
 
 module.exports = router

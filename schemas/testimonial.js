@@ -29,3 +29,16 @@ exports.putTestimonial = {
     },
   },
 }
+
+exports.postTestimonial = {
+  name: {
+    isString: {
+      errorMessage: 'name must be a string',
+    },
+  },
+  content: {
+    isString: {
+      errorMessage: 'content must be a string',
+    },
+  },
+}

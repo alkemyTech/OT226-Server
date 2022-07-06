@@ -19,3 +19,12 @@ exports.updateTestimonial = async (body, id) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.createTestimonial = async (body) => {
+  try {
+    const testimonial = await Testimonial.create(body)
+    return testimonial
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

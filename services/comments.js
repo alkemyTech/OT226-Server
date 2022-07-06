@@ -1,7 +1,7 @@
 const { ErrorObject } = require('../helpers/error')
 const { Comment } = require('../database/models')
 
-exports.getCommets = async () => {
+exports.getComments = async () => {
   try {
     const getCommets = await Comment.findAll({
       attributes: ['body'],

@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsTo(models.Role, { foreignKey: 'roleId' })
+      User.hasMany(models.Comment, { foreignKey: 'user_id' })
     }
   };
   User.init({

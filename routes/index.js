@@ -10,7 +10,7 @@ const contactRouter = require('./contacts')
 const slideRouter = require('./slides')
 const testimonialRouter = require('./testimonials')
 const memberRouter = require('./members')
-const commetsRouter = require('./comments')
+const commentsRouter = require('./comments')
 
 const router = express.Router()
 

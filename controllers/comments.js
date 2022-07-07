@@ -1,10 +1,9 @@
 const createHttpError = require('http-errors')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { createComment, deleteComment } = require('../services/comments')
+const { createComment, updateComments, deleteComment } = require('../services/comments')
 const { decodeJWT } = require('../helpers/jwt')
 
-// example of a controller. First call the service, then build the controller method
 module.exports = {
   post: catchAsync(async (req, res, next) => {
     const { body } = req
@@ -24,6 +23,22 @@ module.exports = {
       next(httpError)
     }
   }),
+  put: catchAsync(async (req, res, next) => {
+    try {
+      const response = await updateComments(req)
+      endpointResponse({
+        res,
+        message: 'Comment successfully updated',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error updating comment] - [comments - PUT]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
   destroy: catchAsync(async (req, res, next) => {
     const { id } = req.params
     const { id: userId, roleId } = decodeJWT(req.headers)
@@ -38,6 +53,7 @@ module.exports = {
       const httpError = createHttpError(
         error.statusCode,
         `[Error deleting comment] - [comment - DELETE]: ${error.message}`,
+        error.statusCode,
       )
       next(httpError)
     }

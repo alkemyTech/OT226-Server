@@ -26,6 +26,6 @@ router.use('/contacts', contactRouter)
 router.use('/slides', slideRouter)
 router.use('/testimonials', testimonialRouter)
 router.use('/members', memberRouter)
-router.use('/comments', commetsRouter)
+router.use('/comments', commentsRouter)
 
 module.exports = router

@@ -7,7 +7,7 @@ const { isAdmin } = require('../middlewares/isAdmin')
 
 const router = express.Router()
 
-router.post('/', schemaValidator(activity), post)
+router.post('/', verifyUsers, isAdmin, schemaValidator(activity), post)
 router.put('/:id', verifyUsers, isAdmin, schemaValidator(activity), put)
 
 module.exports = router

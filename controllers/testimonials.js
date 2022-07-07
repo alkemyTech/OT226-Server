@@ -1,7 +1,7 @@
 const createHttpError = require('http-errors')
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { updateTestimonial } = require('../services/testimonials')
+const { updateTestimonial, createTestimonial } = require('../services/testimonials')
 
 // example of a controller. First call the service, then build the controller method
 module.exports = {
@@ -20,6 +20,22 @@ module.exports = {
       const httpError = createHttpError(
         error.statusCode,
         `[Error updating testimonial] - [testimonial - PUT]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
+  post: catchAsync(async (req, res, next) => {
+    try {
+      const response = await createTestimonial(req.body)
+      endpointResponse({
+        res,
+        message: 'Testimonial created successfully',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error creating testimonial] - [testimonial - POST]: ${error.message}`,
       )
       next(httpError)
     }

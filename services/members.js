@@ -30,3 +30,16 @@ exports.createMember = async (req) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.updateMember = async (req) => {
+  const { id } = req.params
+  try {
+    const searchMember = await Member.findOne({ where: { id } })
+    if (!searchMember || searchMember.length === 0) throw new ErrorObject('Member not found', 404)
+
+    const editMember = await Member.update(req.body, { where: { id } })
+    return editMember
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

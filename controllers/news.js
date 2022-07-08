@@ -1,7 +1,7 @@
 const createHttpError = require('http-errors')
 
 const {
-  create, getNews, deleteNews, updateNews,
+  create, getNews, deleteNews, updateNews, getWithComments,
 } = require('../services/news')
 
 const { endpointResponse } = require('../helpers/success')
@@ -69,6 +69,22 @@ module.exports = {
       const httpError = createHttpError(
         error.statusCode,
         `[Error updating the news] - [news - PUT]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
+  getWithComments: catchAsync(async (req, res, next) => {
+    try {
+      const response = await getWithComments(req.params.id)
+      endpointResponse({
+        res,
+        message: 'news with comments retrieved successfully',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error retrieved news with comments] - [news with comments - GET]: ${error.message}`,
       )
       next(httpError)
     }

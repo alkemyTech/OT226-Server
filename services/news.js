@@ -1,6 +1,6 @@
 const { ErrorObject } = require('../helpers/error')
 
-const { New, Category } = require('../database/models')
+const { New, Category, Comment } = require('../database/models')
 
 exports.create = async (data) => {
   const {
@@ -56,6 +56,20 @@ exports.updateNews = async (req) => {
 
     const updatedNews = await New.update(req.body, { where: { id } })
     return updatedNews
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
+exports.getWithComments = async (idNew) => {
+  try {
+    const getNews = await Comment.findAll({
+      where: { news_id: idNew },
+    })
+    if (!getNews || getNews.length === 0) {
+      throw new ErrorObject('No index found', 404)
+    }
+    return getNews
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

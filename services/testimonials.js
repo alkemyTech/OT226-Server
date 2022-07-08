@@ -28,3 +28,15 @@ exports.createTestimonial = async (body) => {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }
 }
+
+exports.deleteTestimonial = async (idTestimonial) => {
+  try {
+    const testimonial = await Testimonial.destroy({ where: { id: idTestimonial } })
+    if (!testimonial || testimonial.length === 0) {
+      throw new ErrorObject('No index found', 404)
+    }
+    return testimonial
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}

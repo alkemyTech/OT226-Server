@@ -1,10 +1,18 @@
 const { ErrorObject } = require('../helpers/error')
 const { Member } = require('../database/models')
 
-exports.getMembers = async () => {
+exports.getMembers = async (page) => {
   try {
-    const members = await Member.findAll()
-    return members
+    if (!page) {
+      const members = await Member.findAll({})
+      return members
+    }
+    const pageAsNumber = await Number.parseInt(page, 10)
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
+      const members = await Member.findAll({ offset: pageAsNumber - 1, limit: 10 })
+      return members
+    }
+    throw new ErrorObject('Page parameter must be a number greater than or equal to 1', 500)
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

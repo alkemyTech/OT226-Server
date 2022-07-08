@@ -20,7 +20,7 @@ exports.create = async (data) => {
   }
 }
 
-exports.getNews = async (idNew) => {
+exports.getNewById = async (idNew) => {
   try {
     const getNew = await New.findOne({
       where: { id: idNew },

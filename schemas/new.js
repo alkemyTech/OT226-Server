@@ -32,3 +32,17 @@ exports.news = {
     },
   },
 }
+
+exports.idNews = {
+  id: {
+    exists: {
+      errorMessage: 'There must be a id',
+    },
+    notEmpty: {
+      errorMessage: 'id is empty',
+    },
+    isInt: {
+      errorMessage: 'The id must be a integer',
+    },
+  },
+}

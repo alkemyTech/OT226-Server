@@ -1,7 +1,12 @@
 const createHttpError = require('http-errors')
 
 const {
-  create, getNewById, deleteNews, updateNews, getNews, getWithComments
+  create,
+  getNewById,
+  deleteNews,
+  updateNews,
+  getNews,
+  getWithComments,
 } = require('../services/news')
 
 const { endpointResponse } = require('../helpers/success')

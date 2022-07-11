@@ -20,7 +20,7 @@ exports.create = async (data) => {
   }
 }
 
-exports.getNews = async (idNew) => {
+exports.getNewById = async (idNew) => {
   try {
     const getNew = await New.findOne({
       where: { id: idNew },
@@ -70,6 +70,44 @@ exports.getWithComments = async (idNew) => {
       throw new ErrorObject('No index found', 404)
     }
     return getNews
+  } catch (error) {
+    throw new ErrorObject(error.message, error.statusCode || 500)
+  }
+}
+
+exports.getNews = async (req) => {
+  const getUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}`
+  const page = Number.parseInt(req.query.page, 10) || 1
+  const info = { next: null, prev: null }
+  const limit = 10
+  const offset = page > 0 ? (page - 1) * limit : 0
+
+  if (page) {
+    if (page > 1) {
+      info.prev = `${getUrl}?page=${Number(page) - 1}`
+      info.next = `${getUrl}?page=${Number(page) + 1}`
+    } else {
+      info.prev = null
+      info.next = `${getUrl}?page=${Number(page) + 1}`
+    }
+  } else {
+    info.prev = null
+    info.next = `${getUrl}?page=2`
+  }
+
+  try {
+    const { count, rows: news } = await New.findAndCountAll({ offset, limit })
+    const totalPages = Math.ceil(count / limit)
+    if (totalPages < page || page === 0) throw new ErrorObject('News not found', 404)
+
+    const allNews = {
+      prev: info.prev,
+      next: `${totalPages > page ? info.next : null}`,
+      currentPage: page,
+      totalPages,
+      news,
+    }
+    return allNews
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

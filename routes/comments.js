@@ -1,7 +1,9 @@
 const router = require('express').Router()
 
 const { schemaValidator } = require('../middlewares/validator')
-const { post, put, destroy, get } = require('../controllers/comments')
+const {
+  post, put, destroy, get,
+} = require('../controllers/comments')
 const { verifyUsers } = require('../middlewares/auth')
 const { comment } = require('../schemas/comment')
 const { ownerComments } = require('../middlewares/ownerComments')

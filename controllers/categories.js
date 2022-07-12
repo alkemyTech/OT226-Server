@@ -13,7 +13,7 @@ const {
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
-      const response = await getCategories()
+      const response = await getCategories(req)
       endpointResponse({
         res,
         message: 'Categories retrieved successfully',

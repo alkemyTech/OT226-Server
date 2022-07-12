@@ -1,10 +1,33 @@
 const createHttpError = require('http-errors')
+
 const { endpointResponse } = require('../helpers/success')
 const { catchAsync } = require('../helpers/catchAsync')
-const { createComment, updateComments, deleteComment } = require('../services/comments')
+const {
+  createComment,
+  updateComments,
+  deleteComment,
+  getComments,
+} = require('../services/comments')
 const { decodeJWT } = require('../helpers/jwt')
 
 module.exports = {
+  get: catchAsync(async (req, res, next) => {
+    try {
+      const response = await getComments()
+      endpointResponse({
+        res,
+        message: 'Comments retrieved successfully',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error retrieving Comments] - [Comments - GET]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
+
   post: catchAsync(async (req, res, next) => {
     const { body } = req
     try {

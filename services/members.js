@@ -1,18 +1,36 @@
 const { ErrorObject } = require('../helpers/error')
 const { Member } = require('../database/models')
 
-exports.getMembers = async (page) => {
+exports.getMembers = async (req) => {
+  const getUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}`
+  const page = Number.parseInt(req.query.page, 10) || 1
+  const info = { next: null, prev: null }
+  const limit = 10
+  const offset = page > 0 ? (page - 1) * limit : 0
+  if (page) {
+    if (page > 1) {
+      info.prev = `${getUrl}?page=${Number(page) - 1}`
+      info.next = `${getUrl}?page=${Number(page) + 1}`
+    } else {
+      info.prev = null
+      info.next = `${getUrl}?page=${Number(page) + 1}`
+    }
+  } else {
+    info.prev = null
+    info.next = `${getUrl}?page=2`
+  }
   try {
-    if (!page) {
-      const members = await Member.findAll({})
-      return members
+    const { count, rows: members } = await Member.findAndCountAll({ offset, limit })
+    const totalPages = Math.ceil(count / limit)
+    if (totalPages < page || page === 0) throw new ErrorObject('News not found', 404)
+    const allMembers = {
+      prev: info.prev,
+      next: `${totalPages > page ? info.next : null}`,
+      currentPage: page,
+      totalPages,
+      members,
     }
-    const pageAsNumber = await Number.parseInt(page, 10)
-    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
-      const members = await Member.findAll({ offset: pageAsNumber - 1, limit: 10 })
-      return members
-    }
-    throw new ErrorObject('Page parameter must be a number greater than or equal to 1', 500)
+    return allMembers
   } catch (error) {
     throw new ErrorObject(error.message, error.statusCode || 500)
   }

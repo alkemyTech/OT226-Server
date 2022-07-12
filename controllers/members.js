@@ -8,7 +8,7 @@ const { catchAsync } = require('../helpers/catchAsync')
 module.exports = {
   get: catchAsync(async (req, res, next) => {
     try {
-      const response = await getMembers(req.query.page)
+      const response = await getMembers(req)
       endpointResponse({
         res,
         message: 'have been obtained successfully',

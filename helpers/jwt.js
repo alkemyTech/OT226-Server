@@ -29,3 +29,13 @@ exports.decryptJWT = (header) => {
     return message
   }
 }
+
+exports.decodeJWT = (header) => {
+  const token = header.authorization
+  const { id, firstName, roleId } = jwt.decode(token)
+  return {
+    id,
+    firstName,
+    roleId,
+  }
+}

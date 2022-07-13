@@ -5,10 +5,26 @@ const {
   updateTestimonial,
   createTestimonial,
   deleteTestimonial,
+  getTestimonials,
 } = require('../services/testimonials')
 
-// example of a controller. First call the service, then build the controller method
 module.exports = {
+  get: catchAsync(async (req, res, next) => {
+    try {
+      const response = await getTestimonials(req)
+      endpointResponse({
+        res,
+        message: 'testimonials retrieved successfully',
+        body: response,
+      })
+    } catch (error) {
+      const httpError = createHttpError(
+        error.statusCode,
+        `[Error retrieving testimonials] - [testimonials - GET]: ${error.message}`,
+      )
+      next(httpError)
+    }
+  }),
   put: catchAsync(async (req, res, next) => {
     const { body } = req
     const { id } = req.params

@@ -10,7 +10,7 @@ exports.comment = {
       errorMessage: 'The body must be a string',
     },
   },
-  user_id: {
+  userId: {
     exists: {
       errorMessage: 'There must be a user_id',
     },
@@ -21,7 +21,7 @@ exports.comment = {
       errorMessage: 'The user_id must be a integer',
     },
   },
-  news_id: {
+  newsId: {
     exists: {
       errorMessage: 'There must be a news_id',
     },

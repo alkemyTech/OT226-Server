@@ -62,5 +62,37 @@ describe('Test in Contacts /contacts', () => {
             expect(status).to.equal(403);
 
         })
+
+        describe('GET /contacts', () => { 
+           it('GET [SUCCESS] should return a list of contacts', async ()=>{
+   
+               const { body } = await request(app).get('/contacts')
+                                   .set('Accept', 'application/json')
+                                   .set('Authorization', token )
+                                   .expect('Content-Type', /json/) 
+       
+               const { code, status, message, body: bodyRes } = body;
+       
+               expect(code).to.be.a('number');
+               expect(code).to.equal(200);
+               expect(status).to.be.a('boolean');
+               expect(status).to.equal(true);
+               expect(message).to.be.a('string');
+               expect(message).to.equal('Contacts retrieved successfully');
+               expect(bodyRes).to.be.a('array')
+           })
+   
+           it('GET [ERROR] - Request without Token, should return an unauthorized error', async() => {
+   
+               const { error } = await request(app).get('/contacts')
+                                   .set('Accept', 'application/json')
+                                   .expect('Content-Type', /json/) 
+       
+               const { status, text } = error;
+               expect(status).to.be.a('number');
+               expect(status).to.equal(401);
+               expect(text).to.contains('Token not provided');
+           })
+       })
      })
  })

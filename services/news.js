@@ -64,7 +64,7 @@ exports.updateNews = async (req) => {
 exports.getWithComments = async (idNew) => {
   try {
     const getNews = await Comment.findAll({
-      where: { news_id: idNew },
+      where: { newsId: idNew },
     })
     if (!getNews || getNews.length === 0) {
       throw new ErrorObject('No index found', 404)

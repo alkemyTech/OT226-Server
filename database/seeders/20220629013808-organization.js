@@ -13,7 +13,9 @@ module.exports = {
         facebookUrl:'urlface', 
         instagramUrl: 'urlinsta', 
         linkedinUrl: 'urllinkedin',
-        deletedAt: null
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: null,
       },
       {
         name: 'org2',
@@ -26,7 +28,9 @@ module.exports = {
         facebookUrl:'urlface', 
         instagramUrl: 'urlinsta', 
         linkedinUrl: 'urllinkedin',
-        deletedAt: null
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: null,
       },
       {
         name: 'org3',
@@ -39,7 +43,9 @@ module.exports = {
         facebookUrl:'urlface', 
         instagramUrl: 'urlinsta', 
         linkedinUrl: 'urllinkedin',
-        deletedAt: null
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: null,
       }
     ]
       await queryInterface.bulkInsert('Organizations', organizations, {});
